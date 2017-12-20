@@ -54,4 +54,12 @@ int main()
     ::ZBLAS::Vector vector7{3.009, -6.172, 3.692, -2.51};
     ::ZBLAS::Vector base3{6.404, -9.144, 2.759, 8.718};
     std::cout << vector7.GetParellalOntoBase(base3) << ", " << vector7.GetPerpOntoBase(base3) << std::endl;
+
+    ::ZBLAS::Vector vector8{8.462, 7.893, -8.187};
+    ::ZBLAS::Vector wector1{6.984, -5.975, 4.778};
+    std::cout << vector8 * wector1 << std::endl;
+
+    std::cout << ::ZBLAS::Vector::GetParallelogramArea(::ZBLAS::Vector{-8.987, -9.838, 5.031}, ::ZBLAS::Vector{-4.268, -1.861, -8.866}) << std::endl;
+
+    std::cout << ::ZBLAS::Vector::GetTriangleArea(::ZBLAS::Vector{1.5, 9.547, 3.691}, ::ZBLAS::Vector{-6.007, 0.124, 5.772}) << std::endl;
 }

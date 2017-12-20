@@ -116,9 +116,9 @@ namespace ZBLAS
         return true;
     }
 
-    float Vector::GetMagnitude() const
+    double Vector::GetMagnitude() const
     {
-        float res = 0;
+        double res = 0;
         for (const auto& val : __memory)
         {
             res += val * val;
@@ -128,7 +128,7 @@ namespace ZBLAS
 
     Vector Vector::GetNomalizedVector() const throw(std::runtime_error)
     {
-        float t_magnitude = this->GetMagnitude();
+        double t_magnitude = this->GetMagnitude();
         if (fabs(t_magnitude - 0) < 1e-5)
         {
             throw(std::runtime_error("Zero vector has no direction!"));
@@ -141,7 +141,7 @@ namespace ZBLAS
         return vector;
     }
 
-    Vector operator* (const Vector& other, float scalar)
+    Vector operator* (const Vector& other, double scalar)
     {
         Vector t_res(other);
         for (auto& val : t_res.__memory)
@@ -151,7 +151,7 @@ namespace ZBLAS
         return t_res;
     }
 
-    Vector operator* (float scalar, const Vector& other)
+    Vector operator* (double scalar, const Vector& other)
     {
         Vector t_res(other);
         for (auto& val : t_res.__memory)
@@ -164,7 +164,7 @@ namespace ZBLAS
     std::ostream& operator<< (std::ostream& out, const Vector& vector)
     {
         out << "[";
-        std::vector<float>::const_iterator ite = vector.__memory.begin();
+        std::vector<double>::const_iterator ite = vector.__memory.begin();
         while (ite != vector.__memory.end())
         {
             if (ite + 1 == vector.__memory.end())
@@ -181,9 +181,9 @@ namespace ZBLAS
         return out;
     }
 
-    float Vector::GetDotProduct(const Vector &lVec, const Vector &rVec) throw(std::runtime_error)
+    double Vector::GetDotProduct(const Vector &lVec, const Vector &rVec) throw(std::runtime_error)
     {
-        float res = 0;
+        double res = 0;
         if (lVec.__memory.size() != rVec.__memory.size())
         {
             throw(std::runtime_error("Two vectors should have the same dimensions!"));
@@ -195,24 +195,24 @@ namespace ZBLAS
         return res;
     }
 
-    float Vector::GetAngleInRadians(const Vector& lVec, const Vector& rVec) throw(std::runtime_error)
+    double Vector::GetAngleInRadians(const Vector& lVec, const Vector& rVec) throw(std::runtime_error)
     {
-        float lMag = lVec.GetMagnitude();
-        float rMag = rVec.GetMagnitude();
+        double lMag = lVec.GetMagnitude();
+        double rMag = rVec.GetMagnitude();
 
         if (fabs(lMag - 0) < 1e-5 || fabs(rMag - 0) < 1e-5)
         {
             throw(std::runtime_error("Zero vector has no direction!"));
         }
 
-        float cosTheta = GetDotProduct(lVec, rVec) / lMag / rMag;
+        double cosTheta = GetDotProduct(lVec, rVec) / lMag / rMag;
 
-        float angleInRadians = acos(cosTheta);
+        double angleInRadians = acos(cosTheta);
 
         return angleInRadians;
     }
 
-    float Vector::GetAngleInDegrees(const Vector& lVec, const Vector& rVec) throw(std::runtime_error)
+    double Vector::GetAngleInDegrees(const Vector& lVec, const Vector& rVec) throw(std::runtime_error)
     {
         return GetAngleInRadians(lVec, rVec) / M_PI * 180;
     }
@@ -234,7 +234,7 @@ namespace ZBLAS
             return true;
         }
 
-        float scale = *lVec.__memory.begin() / *rVec.__memory.begin();
+        double scale = *lVec.__memory.begin() / *rVec.__memory.begin();
         for (int i = 1; i < lVec.__memory.size(); i++)
         {
             if (fabs(lVec.__memory[i] / rVec.__memory[i] - scale) > 1e-5)
@@ -273,6 +273,27 @@ namespace ZBLAS
     Vector Vector::GetPerpOntoBase(const Vector &base) throw(std::runtime_error)
     {
         return Vector(*this - GetParellalOntoBase(base));
+    }
+
+    Vector Vector::operator*(const Vector &other) const throw(std::runtime_error)
+    {
+        if (__memory.size() != 3 || other.__memory.size() != 3)
+        {
+            throw(std::runtime_error("The cross product is only supported in three dimensional space!"));
+        }
+        return Vector{__memory[1] * other.__memory[2] - __memory[2] * other.__memory[1],
+                      -(__memory[0] * other.__memory[2] - __memory[2] * other.__memory[0]),
+                      __memory[0] * other.__memory[1] - __memory[1] * other.__memory[0]};
+    }
+
+    double Vector::GetTriangleArea(const Vector& lVec, const Vector& rVec) throw(std::runtime_error)
+    {
+        return (lVec * rVec).GetMagnitude() / 2;
+    }
+
+    double Vector::GetParallelogramArea(const Vector &lVec, const Vector &rVec) throw(std::runtime_error)
+    {
+        return (lVec * rVec).GetMagnitude();
     }
 }
 

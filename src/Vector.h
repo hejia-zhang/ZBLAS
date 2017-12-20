@@ -48,31 +48,37 @@ namespace ZBLAS
 
         bool operator==(const Vector& other) const noexcept;
 
-        friend Vector operator* (float scalar, const Vector& other);
+        Vector operator*(const Vector& other) const throw(std::runtime_error);
 
-        friend Vector operator* (const Vector& other, float scalar);
+        friend Vector operator* (double scalar, const Vector& other);
+
+        friend Vector operator* (const Vector& other, double scalar);
 
     public:
-        float GetMagnitude() const;
+        double GetMagnitude() const;
 
         Vector GetNomalizedVector() const throw(std::runtime_error);
 
-        static float GetDotProduct(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
+        static double GetDotProduct(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
 
-        static float GetAngleInRadians(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
+        static double GetAngleInRadians(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
 
-        static float GetAngleInDegrees(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
+        static double GetAngleInDegrees(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
 
         static bool CheckParallel(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
 
         static bool CheckOrthogonal(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
+
+        static double GetTriangleArea(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
+
+        static double GetParallelogramArea(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
 
         Vector GetParellalOntoBase(const Vector& base) throw(std::runtime_error);
 
         Vector GetPerpOntoBase(const Vector& base) throw(std::runtime_error);
 
     private:
-        std::vector<float> __memory;
+        std::vector<double> __memory;
 
         template <typename T>
         void AddElement(T element)
