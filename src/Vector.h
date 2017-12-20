@@ -8,12 +8,16 @@
 #include <cstring>
 #include <vector>
 #include <stdexcept>
+#include <iostream>
 
 namespace ZBLAS
 {
     class Vector
     {
+        friend std::ostream& operator<< (std::ostream& out, const Vector& vector);
+
     public:
+        // constructors
         virtual ~Vector();
 
         Vector(const Vector& other);
@@ -31,6 +35,8 @@ namespace ZBLAS
             AddElement(elements...);
         }
 
+    public:
+        // override operators
         Vector operator+(const Vector& other) throw(std::runtime_error);
 
         Vector& operator+=(const Vector& other) throw(std::runtime_error);
@@ -41,25 +47,20 @@ namespace ZBLAS
 
         bool operator==(const Vector& other) const noexcept;
 
-        friend Vector operator* (float scalar, const Vector& other)
-        {
-            Vector t_res(other);
-            for (auto& val : t_res.__memory)
-            {
-                val *= scalar;
-            }
-            return t_res;
-        }
+        friend Vector operator* (float scalar, const Vector& other);
 
-        friend Vector operator* (const Vector& other, float scalar)
-        {
-            Vector t_res(other);
-            for (auto& val : t_res.__memory)
-            {
-                val *= scalar;
-            }
-            return t_res;
-        }
+        friend Vector operator* (const Vector& other, float scalar);
+
+    public:
+        float GetMagnitude() const;
+
+        Vector GetNomalizedVector() const throw(std::runtime_error);
+
+        static float GetDotProduct(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
+
+        static float GetAngleInRadians(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
+
+        static float GetAngleInDegrees(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
 
     private:
         std::vector<float> __memory;
