@@ -200,7 +200,7 @@ namespace ZBLAS
         float lMag = lVec.GetMagnitude();
         float rMag = rVec.GetMagnitude();
 
-        if (lMag - 0 < 1e-5 || rMag - 0 < 1e-5)
+        if (fabs(lMag - 0) < 1e-5 || fabs(rMag - 0) < 1e-5)
         {
             throw(std::runtime_error("Zero vector has no direction!"));
         }
@@ -215,6 +215,43 @@ namespace ZBLAS
     float Vector::GetAngleInDegrees(const Vector& lVec, const Vector& rVec) throw(std::runtime_error)
     {
         return GetAngleInRadians(lVec, rVec) / M_PI * 180;
+    }
+
+    bool Vector::CheckParallel(const Vector &lVec, const Vector &rVec) throw(std::runtime_error)
+    {
+        if (lVec.__memory.size() != rVec.__memory.size())
+        {
+            throw(std::runtime_error("Two vectors should have the same dimensions!"));
+        }
+
+        if (lVec.__memory.empty())
+        {
+            throw(std::runtime_error("No zero dimension vector!"));
+        }
+
+        if (lVec.CheckIfZeroVector() || rVec.CheckIfZeroVector())
+        {
+            return true;
+        }
+
+        float scale = *lVec.__memory.begin() / *rVec.__memory.begin();
+        for (int i = 1; i < lVec.__memory.size(); i++)
+        {
+            if (fabs(lVec.__memory[i] / rVec.__memory[i] - scale) > 1e-5)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    bool Vector::CheckOrthogonal(const Vector &lVec, const Vector &rVec) throw(std::runtime_error)
+    {
+        if (fabs(GetDotProduct(lVec, rVec) - 0) < 1e-5)
+        {
+            return true;
+        }
+        return false;
     }
 }
 

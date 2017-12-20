@@ -82,6 +82,20 @@ TEST_F(VectorTest, GetAngleInDegrees)
     EXPECT_FLOAT_EQ(::ZBLAS::Vector::GetAngleInDegrees(t_v, t_w), 90);
 }
 
+TEST_F(VectorTest, CheckParallel)
+{
+    ::ZBLAS::Vector t_v{-1, -1};
+    ::ZBLAS::Vector t_w{1, 1};
+    EXPECT_TRUE(::ZBLAS::Vector::CheckParallel(t_v, t_w));
+}
+
+TEST_F(VectorTest, CheckOrthogonality)
+{
+    ::ZBLAS::Vector t_v{-1, 1};
+    ::ZBLAS::Vector t_w{1, 1};
+    EXPECT_TRUE(::ZBLAS::Vector::CheckOrthogonal(t_v, t_w));
+}
+
 int main(int argc, char **argv)
 {
     ::testing::InitGoogleTest(&argc, argv);

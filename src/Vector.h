@@ -9,6 +9,7 @@
 #include <vector>
 #include <stdexcept>
 #include <iostream>
+#include <math.h>
 
 namespace ZBLAS
 {
@@ -62,6 +63,10 @@ namespace ZBLAS
 
         static float GetAngleInDegrees(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
 
+        static bool CheckParallel(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
+
+        static bool CheckOrthogonal(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
+
     private:
         std::vector<float> __memory;
 
@@ -76,6 +81,15 @@ namespace ZBLAS
         {
             __memory.push_back(head);
             AddElement(elements...);
+        }
+
+        bool CheckIfZeroVector() const
+        {
+            if (fabs(GetMagnitude() - 0) < 1e-5)
+            {
+                return true;
+            }
+            return false;
         }
 
     public:
