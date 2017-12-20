@@ -253,6 +253,27 @@ namespace ZBLAS
         }
         return false;
     }
+
+    Vector Vector::GetParellalOntoBase(const Vector &base) throw(std::runtime_error)
+    {
+        if (__memory.empty() || base.__memory.empty())
+        {
+            throw(std::runtime_error("NO zero dimension vector"));
+        }
+
+        if (__memory.size() != base.__memory.size())
+        {
+            throw(std::runtime_error("Should have the same dimension with Base vector"));
+        }
+
+        Vector unitVectorB = base.GetNomalizedVector();
+        return Vector(GetDotProduct(*this, unitVectorB) * unitVectorB);
+    }
+
+    Vector Vector::GetPerpOntoBase(const Vector &base) throw(std::runtime_error)
+    {
+        return Vector(*this - GetParellalOntoBase(base));
+    }
 }
 
 

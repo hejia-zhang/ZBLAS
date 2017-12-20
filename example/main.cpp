@@ -42,4 +42,16 @@ int main()
     std::cout << ::ZBLAS::Vector::CheckParallel(::ZBLAS::Vector{2.118, 4.827}, ::ZBLAS::Vector{0, 0}) << std::endl;
 
     std::cout << ::ZBLAS::Vector::CheckOrthogonal(::ZBLAS::Vector{2.118, 4.827}, ::ZBLAS::Vector{0, 0}) << std::endl;
+
+    ::ZBLAS::Vector vector5{3.039, 1.879};
+    ::ZBLAS::Vector base1{0.825, 2.036};
+    std::cout << vector5.GetParellalOntoBase(base1) << std::endl;
+
+    ::ZBLAS::Vector vector6{-9.88, -3.264, -8.159};
+    ::ZBLAS::Vector base2{-2.155, -9.353, -9.473};
+    std::cout << vector6.GetPerpOntoBase(base2) << std::endl;
+
+    ::ZBLAS::Vector vector7{3.009, -6.172, 3.692, -2.51};
+    ::ZBLAS::Vector base3{6.404, -9.144, 2.759, 8.718};
+    std::cout << vector7.GetParellalOntoBase(base3) << ", " << vector7.GetPerpOntoBase(base3) << std::endl;
 }

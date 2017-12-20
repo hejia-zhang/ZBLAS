@@ -67,6 +67,10 @@ namespace ZBLAS
 
         static bool CheckOrthogonal(const Vector& lVec, const Vector& rVec) throw(std::runtime_error);
 
+        Vector GetParellalOntoBase(const Vector& base) throw(std::runtime_error);
+
+        Vector GetPerpOntoBase(const Vector& base) throw(std::runtime_error);
+
     private:
         std::vector<float> __memory;
 
