@@ -6,7 +6,7 @@
 #define ZBLAS_VECTORTEST_H
 
 
-#include "../src/Vector.h"
+#include "Vector.h"
 #include "gtest/gtest.h"
 
 class VectorTest : public ::testing::Test
@@ -20,7 +20,7 @@ protected:
     {
     }
 
-    virtual void Setup()
+    virtual void SetUp()
     {
     }
 
