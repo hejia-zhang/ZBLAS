@@ -15,8 +15,6 @@ namespace ZBLAS
 {
     class Vector
     {
-        friend std::ostream& operator<< (std::ostream& out, const Vector& vector);
-
     public:
         // constructors
         virtual ~Vector();
@@ -38,6 +36,8 @@ namespace ZBLAS
 
     public:
         // override operators
+        double operator[](size_t i) const throw(std::runtime_error);
+
         Vector operator+(const Vector& other) throw(std::runtime_error);
 
         Vector& operator+=(const Vector& other) throw(std::runtime_error);
@@ -53,6 +53,8 @@ namespace ZBLAS
         friend Vector operator* (double scalar, const Vector& other);
 
         friend Vector operator* (const Vector& other, double scalar);
+
+        friend std::ostream& operator<< (std::ostream& out, const Vector& vector);
 
     public:
         double GetMagnitude() const;

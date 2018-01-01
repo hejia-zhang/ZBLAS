@@ -2,7 +2,6 @@
 // Created by hjzh on 17-12-19.
 //
 #include "Vector.h"
-#include <math.h>
 
 namespace ZBLAS
 {
@@ -30,6 +29,17 @@ namespace ZBLAS
     Vector::~Vector()
     {
         __memory.clear();
+    }
+
+
+    double Vector::operator[](size_t i) const throw(std::runtime_error)
+    {
+        if (i > __memory.size())
+        {
+            throw (std::runtime_error("You subscription operator seems out of the range!"));
+        }
+
+        return __memory[i];
     }
 
     Vector Vector::operator+(const Vector &other) throw(std::runtime_error)

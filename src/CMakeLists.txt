@@ -1,1 +1,1 @@
-add_library(ZBLAS SHARED Vector.cpp)
+add_library(ZBLAS SHARED Vector.cpp Line.cpp Line.h)
