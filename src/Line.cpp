@@ -15,6 +15,10 @@ namespace ZBLAS
     Line::Line(const Vector &vector, double cTerm)
             : __NormalVector(vector), __cTerm(cTerm)
     {
+        if (__NormalVector.Size() != 2)
+        {
+            __NormalVector.Resize(2);
+        }
     }
 
     Line::~Line()
@@ -49,6 +53,11 @@ namespace ZBLAS
 
     INTERSECTION_STATUS Line::CheckParallelNSame(const Line &lLine, const Line &rLine) throw(std::runtime_error)
     {
+        if (lLine.__NormalVector.CheckIfZeroVector() || rLine.__NormalVector.CheckIfZeroVector())
+        {
+            throw(std::runtime_error("Normal Vector should not be zero vector!"));
+        }
+
         if (Vector::CheckParallel(lLine.__NormalVector, rLine.__NormalVector))
         {
             // there is no possibility that both of two elements in normal vector are 0

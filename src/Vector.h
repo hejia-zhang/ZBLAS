@@ -21,6 +21,8 @@ namespace ZBLAS
 
         Vector(const Vector& other);
 
+        Vector(const std::vector<double>& vecEle);
+
         Vector& operator=(const Vector& other);
 
         Vector(Vector&& other) noexcept;
@@ -79,6 +81,19 @@ namespace ZBLAS
 
         Vector GetPerpOntoBase(const Vector& base) throw(std::runtime_error);
 
+        size_t Size() const;
+
+        void Resize(int dim);
+
+        bool CheckIfZeroVector() const
+        {
+            if (fabs(GetMagnitude() - 0) < 1e-5)
+            {
+                return true;
+            }
+            return false;
+        }
+
     private:
         std::vector<double> __memory;
 
@@ -93,15 +108,6 @@ namespace ZBLAS
         {
             __memory.push_back(head);
             AddElement(elements...);
-        }
-
-        bool CheckIfZeroVector() const
-        {
-            if (fabs(GetMagnitude() - 0) < 1e-5)
-            {
-                return true;
-            }
-            return false;
         }
 
     public:

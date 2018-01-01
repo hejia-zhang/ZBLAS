@@ -10,6 +10,11 @@ namespace ZBLAS
         __memory = other.__memory;
     }
 
+    Vector::Vector(const std::vector<double>& vecEle)
+    {
+        __memory = vecEle;
+    }
+
     Vector& Vector::operator=(const Vector &other)
     {
         __memory = other.__memory;
@@ -189,6 +194,26 @@ namespace ZBLAS
             ite++;
         }
         return out;
+    }
+
+    size_t Vector::Size() const
+    {
+        return __memory.size();
+    }
+
+    void Vector::Resize(int dim)
+    {
+        if (__memory.size() > dim)
+        {
+            __memory.resize(dim);
+        }
+        else
+        {
+            for (int i = 0; i < dim - __memory.size(); i++)
+            {
+                __memory.push_back(0);
+            }
+        }
     }
 
     double Vector::GetDotProduct(const Vector &lVec, const Vector &rVec) throw(std::runtime_error)

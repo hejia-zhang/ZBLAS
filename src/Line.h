@@ -6,16 +6,10 @@
 #define ZBLAS_LINE_H
 
 #include "Vector.h"
+#include "Common.h"
 
 namespace ZBLAS
 {
-    enum INTERSECTION_STATUS
-    {
-        PAR = 0,
-        SAM = 1,
-        NPAR = 2,
-    };
-
     class Line
     {
         friend std::ostream& operator<< (std::ostream& out, const Line& line);

@@ -4,6 +4,7 @@
 
 #include "Vector.h"
 #include "Line.h"
+#include "Plane.h"
 
 int main()
 {
@@ -63,30 +64,45 @@ int main()
 //
 //    std::cout << ::ZBLAS::Vector::GetTriangleArea(::ZBLAS::Vector{1.5, 9.547, 3.691}, ::ZBLAS::Vector{-6.007, 0.124, 5.772}) << std::endl;
 
-    ::ZBLAS::Line line1{::ZBLAS::Vector{4.046, 2.836}, 1.21};
-    ::ZBLAS::Line line2{::ZBLAS::Vector{10.115, 7.09}, 3.025};
-    ::ZBLAS::INTERSECTION_STATUS res1 = ::ZBLAS::Line::CheckParallelNSame(line1, line2);
+//    ::ZBLAS::Line line1{::ZBLAS::Vector{4.046, 2.836}, 1.21};
+//    ::ZBLAS::Line line2{::ZBLAS::Vector{10.115, 7.09}, 3.025};
+//    ::ZBLAS::INTERSECTION_STATUS res1 = ::ZBLAS::Line::CheckParallelNSame(line1, line2);
+//    std::cout << res1 << std::endl;
+//    if (res1 == ::ZBLAS::NPAR)
+//    {
+//        std::cout << ::ZBLAS::Line::GetIntersectionOfTwoNonParLines(line1, line2) << std::endl;
+//    }
+//
+//    ::ZBLAS::Line line3{::ZBLAS::Vector{7.204, 3.182}, 8.68};
+//    ::ZBLAS::Line line4{::ZBLAS::Vector{8.172, 4.114}, 9.883};
+//    ::ZBLAS::INTERSECTION_STATUS res2 = ::ZBLAS::Line::CheckParallelNSame(line3, line4);
+//    std::cout << res2 << std::endl;
+//    if (res2 == ::ZBLAS::NPAR)
+//    {
+//        std::cout << ::ZBLAS::Line::GetIntersectionOfTwoNonParLines(line3, line4) << std::endl;
+//    }
+//
+//    ::ZBLAS::Line line5{::ZBLAS::Vector{1.182, 5.562}, 6.744};
+//    ::ZBLAS::Line line6{::ZBLAS::Vector{1.773, 8.343}, 9.525};
+//    ::ZBLAS::INTERSECTION_STATUS res = ::ZBLAS::Line::CheckParallelNSame(line5, line6);
+//    std::cout << res << std::endl;
+//    if (res == ::ZBLAS::NPAR)
+//    {
+//        std::cout << ::ZBLAS::Line::GetIntersectionOfTwoNonParLines(line5, line6) << std::endl;
+//    }
+
+    ::ZBLAS::Plane plane1{::ZBLAS::Vector{-0.412, 3.806, 0.728}, -3.46};
+    ::ZBLAS::Plane plane2{::ZBLAS::Vector{1.03, -9.515, -1.82}, 8.65};
+    ::ZBLAS::INTERSECTION_STATUS res1 = ::ZBLAS::Plane::CheckParallelNSame(plane1, plane2);
     std::cout << res1 << std::endl;
-    if (res1 == ::ZBLAS::NPAR)
-    {
-        std::cout << ::ZBLAS::Line::GetIntersectionOfTwoNonParLines(line1, line2) << std::endl;
-    }
 
-    ::ZBLAS::Line line3{::ZBLAS::Vector{7.204, 3.182}, 8.68};
-    ::ZBLAS::Line line4{::ZBLAS::Vector{8.172, 4.114}, 9.883};
-    ::ZBLAS::INTERSECTION_STATUS res2 = ::ZBLAS::Line::CheckParallelNSame(line3, line4);
+    ::ZBLAS::Plane plane3{::ZBLAS::Vector{2.611, 5.528, 0.283}, 4.6};
+    ::ZBLAS::Plane plane4{::ZBLAS::Vector{7.715, 8.306, 5.342}, 3.76};
+    ::ZBLAS::INTERSECTION_STATUS res2 = ::ZBLAS::Plane::CheckParallelNSame(plane3, plane4);
     std::cout << res2 << std::endl;
-    if (res2 == ::ZBLAS::NPAR)
-    {
-        std::cout << ::ZBLAS::Line::GetIntersectionOfTwoNonParLines(line3, line4) << std::endl;
-    }
 
-    ::ZBLAS::Line line5{::ZBLAS::Vector{1.182, 5.562}, 6.744};
-    ::ZBLAS::Line line6{::ZBLAS::Vector{1.773, 8.343}, 9.525};
-    ::ZBLAS::INTERSECTION_STATUS res = ::ZBLAS::Line::CheckParallelNSame(line5, line6);
-    std::cout << res << std::endl;
-    if (res == ::ZBLAS::NPAR)
-    {
-        std::cout << ::ZBLAS::Line::GetIntersectionOfTwoNonParLines(line5, line6) << std::endl;
-    }
+    ::ZBLAS::Plane plane5{::ZBLAS::Vector{-7.926, 8.625, -7.212}, -7.952};
+    ::ZBLAS::Plane plane6{::ZBLAS::Vector{-2.642, 2.875, -2.404}, -2.443};
+    ::ZBLAS::INTERSECTION_STATUS res3 = ::ZBLAS::Plane::CheckParallelNSame(plane5, plane6);
+    std::cout << res3 << std::endl;
 }
